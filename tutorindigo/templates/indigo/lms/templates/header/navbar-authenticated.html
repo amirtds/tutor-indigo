@@ -52,6 +52,12 @@ from openedx.core.djangoapps.site_configuration import helpers as configuration_
           </a>
       </div>
     % endif
+    <div class="mobile-nav-item hidden-mobile nav-item nav-tab">
+      <a class="${'active ' if reverse('dashboard') == request.path else ''}tab-nav-link" href="#"
+           aria-current="${'page' if reverse('dashboard') == request.path else 'false'}">
+           ${_("Avatar")}
+      </a>
+    </div>
   </div>
   <div class="secondary d-flex align-items-center">
     <%include file="./theme-toggle-button.html" />
