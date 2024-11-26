@@ -1326,6 +1326,13 @@ body.indigo-dark-theme {
     }
   } 
 }
+
+// Hide links starting with edx.* or openedx.*
+a[href^="https://edx."],
+a[href^="https://openedx."] {
+    display: none;
+}
+
 @import '../../../extra/footer';
 @import '../../../extra/header';
 @import '../../../dashboard/dashboard';
