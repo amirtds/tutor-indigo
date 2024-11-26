@@ -1330,7 +1330,16 @@ body.indigo-dark-theme {
 // Hide links starting with edx.* or openedx.*
 a[href^="https://edx."],
 a[href^="https://openedx."] {
-    display: none;
+    display: none !important;
+}
+
+header.global-header .header-logo a .logo {
+  height: 70px;
+}
+
+.header-logo a {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 @import '../../../extra/footer';
