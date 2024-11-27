@@ -9,3 +9,12 @@ a[href^="https://edx."],
 a[href^="https://openedx."] {
     display: none;
 }
+
+
+.help-sidebar {
+    display: none !important;
+}
+
+.content-supplementary {
+    display: none !important;
+}
