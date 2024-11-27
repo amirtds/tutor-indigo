@@ -1334,7 +1334,16 @@ a[href^="https://openedx."] {
 }
 
 header.global-header .header-logo a .logo {
-  height: 70px;
+  height: 80px !important;
+  margin-top: -20px !important;
+}
+
+.studio-header .logo {
+  height: 80px !important;
+}
+
+.studio-header {
+  height: 4rem !important;
 }
 
 .header-logo a {
