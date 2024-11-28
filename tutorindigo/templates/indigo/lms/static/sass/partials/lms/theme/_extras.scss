@@ -1355,6 +1355,13 @@ header.global-header .header-logo a .logo {
   display: none !important
 }
 
+.empty-dashboard-message {
+  border: 3px solid #e4e4e4 !important;
+  background: #f8f8f8 !important;
+  padding: 40px 2px !important;
+  text-align: center !important;
+}
+
 @import '../../../extra/footer';
 @import '../../../extra/header';
 @import '../../../dashboard/dashboard';
