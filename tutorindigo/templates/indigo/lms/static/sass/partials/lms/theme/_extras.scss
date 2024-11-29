@@ -1362,6 +1362,10 @@ header.global-header .header-logo a .logo {
   text-align: center !important;
 }
 
+.location-example {
+  display: none !important;
+}
+
 @import '../../../extra/footer';
 @import '../../../extra/header';
 @import '../../../dashboard/dashboard';
