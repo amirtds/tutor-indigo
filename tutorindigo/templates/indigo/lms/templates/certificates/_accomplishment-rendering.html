@@ -133,7 +133,7 @@ course_mode_class = course_mode if course_mode else ''
 
 .ribbon {
     position: relative;
-    margin-bottom: 40px
+    margin-bottom: 20px
 }
 
 .ribbon:after,.ribbon:before {
@@ -318,12 +318,13 @@ course_mode_class = course_mode if course_mode else ''
 
 .certificate-footer {
     position: absolute;
-    bottom: 35px;
+    bottom: 65px;
     left: 0;
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 40px;
     padding: 0 40px;
 }
 
@@ -367,7 +368,7 @@ course_mode_class = course_mode if course_mode else ''
             </div>
             <div class="inner">
                 <strong class="user-name">${accomplishment_copy_name or accomplishment_copy_username}</strong>
-                <p class="certificate-text">This certificate is given to ${accomplishment_copy_name} for his achievment on ${certificate_date_issued} for finishing the course ${accomplishment_copy_course_name}. Hopefully this a great motivation.</p>
+                <p class="certificate-text">This certificate is given to <strong>${accomplishment_copy_name}</strong> for his achievment on <strong>${certificate_date_issued}</strong> for finishing the course <strong>${accomplishment_copy_course_name}</strong>. Hopefully this a great motivation.</p>
             </div>
             <div class="certificate-bottom">
                 % if mode != 'base':
@@ -385,11 +386,11 @@ course_mode_class = course_mode if course_mode else ''
             </div>
             
             <div class="certificate-footer">
-                <span class="certificate-number">${_("Certificate ID Number")}: ${certificate_id_number}</span>
                 <div class="qr-code">
                     <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${request.build_absolute_uri('/certificates/')}${certificate_id_number}" 
                          alt="Certificate verification QR code">
                 </div>
+                <span class="certificate-number">${_("Certificate ID Number")}: ${certificate_id_number}</span>
             </div>
         </div>
     </div>
