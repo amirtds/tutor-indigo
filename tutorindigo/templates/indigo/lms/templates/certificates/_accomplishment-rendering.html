@@ -68,13 +68,13 @@ course_mode_class = course_mode if course_mode else ''
 .certificate-scroll-container {
     max-width: 100%;
     overflow: auto;
-    height: 20.9cm
+    height: 20cm
 }
 
 .certificate-wrapper {
     position: relative;
     width: 29.7cm;
-    height: 20.9cm;
+    height: 20cm;
     margin: 0 auto;
     overflow: hidden
 }
@@ -92,7 +92,7 @@ course_mode_class = course_mode if course_mode else ''
 .main-bg {
     display: block;
     width: 29.7cm;
-    height: 20.9cm
+    height: 20cm
 }
 
 .certificate-body {
@@ -100,7 +100,7 @@ course_mode_class = course_mode if course_mode else ''
     left: 0;
     top: 0;
     width: 29.7cm;
-    height: 20.9cm;
+    height: 20cm;
     text-align: center;
     display: flex;
     align-items: center;
@@ -111,7 +111,7 @@ course_mode_class = course_mode if course_mode else ''
 .certificate-logo {
     display: inline-block;
     margin-bottom: 26px;
-    height: 45px
+    height: 80px
 }
 
 .certificate-dot {
@@ -239,7 +239,7 @@ course_mode_class = course_mode if course_mode else ''
 .certificate-bottom {
     display: flex;
     justify-content: center;
-    margin-top: 40px
+    margin-top: 30px
 }
 
 .date {
@@ -306,8 +306,8 @@ course_mode_class = course_mode if course_mode else ''
     transform: translateX(-50%);
     height: auto;
     width: auto;
-    max-width: 85px;
-    max-height: 85px
+    max-width: 100px;
+    max-height: 100px
 }
 
 .signature span {
@@ -316,35 +316,34 @@ course_mode_class = course_mode if course_mode else ''
     min-width: 80px
 }
 
-.certificate-number {
-    display: block;
-    position: absolute;
-    left: 0;
-    bottom: 75px;
-    font-size: 13px;
-    width: 100%;
-    text-align: center
-}
-
 .certificate-footer {
     position: absolute;
-    bottom: 75px;
+    bottom: 35px;
     left: 0;
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 20px;
+    justify-content: space-between;
+    padding: 0 40px;
+}
+
+.certificate-number {
+    position: static;
+    font-size: 13px;
+    text-align: left;
+    width: auto;
+    bottom: auto;
 }
 
 .qr-code img {
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     background: white;
     padding: 5px;
     border: 1px solid #24346c;
     border-radius: 4px;
 }
+
 @media screen and (max-width: 767px) {
     .footer-app {
         flex-direction:column
@@ -359,7 +358,7 @@ course_mode_class = course_mode if course_mode else ''
             <img class="certificate-logo" src="/static/indigo/images/logo.png">
             <div class="ribbon">
                 <span class="ribbon-text">
-                    <svg class="certificate-dot" viewBox="0 0 400 60">
+                    <svg class="certificate-dot" viewBox="0 0 550 60">
                         <path d="M-1-1h582v402H-1z" fill="currentColor"/>
                     </svg>
                     <b>${_('Certificate OF APPRECIATION')}</b>
@@ -368,12 +367,9 @@ course_mode_class = course_mode if course_mode else ''
             </div>
             <div class="inner">
                 <strong class="user-name">${accomplishment_copy_name or accomplishment_copy_username}</strong>
-                <p class="certificate-text">${_('This certificate is given to ${accomplishment_copy_name} for his achievment on ${certificate_date_issued} for finishing the course ${accomplishment_copy_course_name}. Hopefully this a great motivation.')}</p>
+                <p class="certificate-text">This certificate is given to ${accomplishment_copy_name} for his achievment on ${certificate_date_issued} for finishing the course ${accomplishment_copy_course_name}. Hopefully this a great motivation.</p>
             </div>
             <div class="certificate-bottom">
-                <div class="medal">
-                    <img src="/static/indigo/images/medal.svg">
-                </div>
                 % if mode != 'base':
                 <div class="signature">
                     % if certificate_data:
@@ -389,11 +385,11 @@ course_mode_class = course_mode if course_mode else ''
             </div>
             
             <div class="certificate-footer">
+                <span class="certificate-number">${_("Certificate ID Number")}: ${certificate_id_number}</span>
                 <div class="qr-code">
                     <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${request.build_absolute_uri('/certificates/')}${certificate_id_number}" 
                          alt="Certificate verification QR code">
                 </div>
-                <span class="certificate-number">${_("Certificate ID Number")}: ${certificate_id_number}</span>
             </div>
         </div>
     </div>
