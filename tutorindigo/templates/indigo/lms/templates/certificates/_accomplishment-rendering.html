@@ -5,6 +5,35 @@
 course_mode_class = course_mode if course_mode else ''
 %>
 
+<style>
+    .ribbon {
+        position: relative;
+        margin-bottom: 40px;
+    }
+    .ribbon-text {
+    display: block;
+    position: relative;
+    min-width: 400px;
+    padding: 0 30px;
+    height: 60px;
+    font-size: 1.5em;
+    font-weight: 800;
+    line-height: 55px;
+    color: #fff;
+    z-index: 1;
+    box-sizing: border-box;
+}
+.certificate-dot {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    color: #24346c;
+}
+</style>
+
 <main class="accomplishment accomplishment-main">
 
     <div class="wrapper-accomplishment-rendering">
@@ -34,7 +63,15 @@ course_mode_class = course_mode if course_mode else ''
             <div class="wrapper-statement-and-signatories">
                 <div class="accomplishment-statement">
                     <p class="accomplishment-statement-lead">
-                        <span class="accomplishment-summary copy copy-lead">This certificate is proudly awarded to</span>
+                        <div class="ribbon">
+                            <span class="ribbon-text">
+                                <svg class="certificate-dot" viewBox="0 0 400 60">
+                                    <path d="M-1-1h582v402H-1z" fill="currentColor"/>
+                                </svg>
+                                <b>${_('Certificate')}</b>
+                            </span>
+                            <strong class="general-text">${_('This certificate is proudly presented to')}</strong>
+                        </div>                        
                         <strong class="accomplishment-recipient hd-1 emphasized">${accomplishment_copy_name}</strong>
                         <span class="accomplishment-summary copy copy-lead">This certificate is given to <strong>${accomplishment_copy_name}</strong> for his achievment on ${certificate_date_issued} for finishing the course <strong>${accomplishment_copy_course_name}</strong>. Hopefully this a great motivation.</span>
                     </p>
