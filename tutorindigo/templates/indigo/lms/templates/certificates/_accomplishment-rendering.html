@@ -8,7 +8,12 @@ course_mode_class = course_mode if course_mode else ''
 <main class="accomplishment accomplishment-main">
 
     <div class="wrapper-accomplishment-rendering">
-        <div class="accomplishment-rendering" style="background-image: url('/static/indigo/images/certificate-background.png');">
+        <div class="accomplishment-rendering" style="background-image: url('/static/indigo/images/certificate-background.png'); 
+             background-size: 100% 100%; 
+             background-repeat: no-repeat; 
+             position: relative; 
+             padding: 40px; 
+             min-height: 700px;">
             <span class="deco-corner deco-corner-tl"></span>
             <span class="deco-corner deco-corner-tr"></span>
             <span class="deco-corner deco-corner-bl"></span>
@@ -19,6 +24,10 @@ course_mode_class = course_mode if course_mode else ''
                     <img class="src" src="/static/certificates/images/ico-${course_mode_class}.png" alt="Image for course mode of type ${course_mode_class}">
                 </span>
 
+                <div class="organization organization-edX" style="margin-bottom: 20px;">
+                    <img class="organization-logo" src="${logo_src}" alt="${platform_name}" style="max-height: 100px;">
+                </div>
+
                 <span style="font-size: 4rem; font-weight: 700;">CERTIFICATE<br/></span>
                 <span style="font-size: 2.5rem; font-weight: 300;">OF APPRECIATION</span>
             </div>
@@ -28,10 +37,8 @@ course_mode_class = course_mode if course_mode else ''
                     <p class="accomplishment-statement-lead">
                         <span class="accomplishment-summary copy copy-lead">This certificate is proudly awarded to</span>
                         <strong class="accomplishment-recipient hd-1 emphasized">${accomplishment_copy_name}</strong>
-                        <span class="accomplishment-summary copy copy-lead">This certificate is given to ${accomplishment_copy_name} for his achievment on ${certificate_date_issued} for finishing the course ${accomplishment_copy_course_name}. Hopefully this a great motivation.</span>
+                        <span class="accomplishment-summary copy copy-lead">This certificate is given to <strong>${accomplishment_copy_name}</strong> for his achievment on ${certificate_date_issued} for finishing the course <strong>${accomplishment_copy_course_name}</strong>. Hopefully this a great motivation.</span>
                     </p>
-
-                    <p class="accomplishment-statement-detail copy copy-lead">${accomplishment_copy_course_description}</p>
                 </div>
 
                 % if mode != 'base':
@@ -66,8 +73,15 @@ course_mode_class = course_mode if course_mode else ''
 
                 <ul class="wrapper-orgs list-orgs">
                     <li class="wrapper-organization">
-                        <div class="organization organization-edX">
-                            <img class="organization-logo" src="${logo_src}" alt="${platform_name}">
+                        <div class="certificate-qr-code">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${request.build_absolute_uri('/certificates/')}${certificate_id_number}" 
+                                 alt="Certificate verification QR code"
+                                 style="width: 150px; 
+                                        height: 150px; 
+                                        background: white; 
+                                        padding: 10px;
+                                        border: 1px solid #d3a45f;
+                                        border-radius: 8px;">
                         </div>
                     </li>
 
@@ -79,12 +93,6 @@ course_mode_class = course_mode if course_mode else ''
                     </li>
                     % endif
                 </ul>
-            </div>
-
-            <div class="certificate-qr-code">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${request.build_absolute_uri('/certificates/')}${certificate_id_number}" 
-                     alt="Certificate verification QR code"
-                     style="position: absolute; bottom: 20px; left: 20px; width: 100px; height: 100px;">
             </div>
         </div>
     </div>
