@@ -9,7 +9,6 @@ course_mode_class = course_mode if course_mode else ''
 
     <div class="wrapper-accomplishment-rendering">
         <div class="accomplishment-rendering" style="background-image: url('/static/indigo/images/certificate-bg.svg'); 
-             background-size: 100% 100%; 
              background-repeat: no-repeat; 
              position: relative; 
              padding: 40px; 
@@ -76,8 +75,8 @@ course_mode_class = course_mode if course_mode else ''
                         <div class="certificate-qr-code">
                             <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${request.build_absolute_uri('/certificates/')}${certificate_id_number}" 
                                  alt="Certificate verification QR code"
-                                 style="width: 150px; 
-                                        height: 150px; 
+                                 style="width: 80px; 
+                                        height: 80px; 
                                         background: white; 
                                         padding: 10px;
                                         border: 1px solid #d3a45f;
