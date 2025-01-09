@@ -32,6 +32,24 @@ course_mode_class = course_mode if course_mode else ''
     height: 100%;
     color: #24346c;
 }
+.ribbon:before {
+    left: -50px;
+    border-color: #24346c #24346c #24346c transparent;
+}
+.ribbon-text:before {
+    left: 0;
+    border-width: 0 45px 25px 0;
+    border-color: #24346c #24346c transparent transparent;
+}
+.ribbon-text:after {
+    right: 0;
+    border-width: 25px 45px 0 0;
+    border-color: #24346c transparent transparent transparent;
+}
+.ribbon:after {
+    right: -50px;
+    border-color: #24346c transparent #24346c #24346c;
+}
 </style>
 
 <main class="accomplishment accomplishment-main">
@@ -47,17 +65,17 @@ course_mode_class = course_mode if course_mode else ''
             <span class="deco-corner deco-corner-bl"></span>
             <span class="deco-corner deco-corner-br"></span>
 
-            <div class="accomplishment-type">
+            <div class="accomplishment-type" style="margin-bottom: 20px !important;">
                 <span class="accomplishment-type-symbol">
                     <img class="src" src="/static/certificates/images/ico-${course_mode_class}.png" alt="Image for course mode of type ${course_mode_class}">
                 </span>
 
-                <div class="organization organization-edX" style="margin-bottom: 20px;">
+                <div class="organization organization-edX" style="margin-bottom: 20px !important; margin-top: 20px !important;">
                     <img class="organization-logo" src="${logo_src}" alt="${platform_name}" style="max-height: 100px;">
                 </div>
 
-                <span style="font-size: 4rem; font-weight: 700;">CERTIFICATE<br/></span>
-                <span style="font-size: 2.5rem; font-weight: 300;">OF APPRECIATION</span>
+                <span style="font-size: 3rem; font-weight: 700;">CERTIFICATE<br/></span>
+                <span style="font-size: 1.5rem; font-weight: 300;">OF APPRECIATION</span>
             </div>
 
             <div class="wrapper-statement-and-signatories">
@@ -72,8 +90,20 @@ course_mode_class = course_mode if course_mode else ''
                             </span>
                             <strong class="general-text">${_('This certificate is proudly presented to')}</strong>
                         </div>                        
-                        <strong class="accomplishment-recipient hd-1 emphasized">${accomplishment_copy_name}</strong>
-                        <span class="accomplishment-summary copy copy-lead">This certificate is given to <strong>${accomplishment_copy_name}</strong> for his achievment on ${certificate_date_issued} for finishing the course <strong>${accomplishment_copy_course_name}</strong>. Hopefully this a great motivation.</span>
+                        <strong class="accomplishment-recipient hd-1 emphasized" style="border-bottom: 2px solid #24346c;
+                        color: #3b3e42;
+                        font-size: 36px;
+                        line-height: 40px;
+                        font-weight: 800;
+                        display: inline-block;
+                        padding: 0 15px 14px;
+                        margin-bottom: 17px;
+                        word-break: break-word;">${accomplishment_copy_name}</strong>
+                        <span class="accomplishment-summary copy copy-lead" style="    text-align: center;
+                        color: #747e92;
+                        font-size: 14px;
+                        line-height: 17px;
+                        width: 70%;">This certificate is given to <strong>${accomplishment_copy_name}</strong> for his achievment on ${certificate_date_issued} for finishing the course <strong>${accomplishment_copy_course_name}</strong>. Hopefully this a great motivation.</span>
                     </p>
                 </div>
 
