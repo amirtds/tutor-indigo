@@ -1326,6 +1326,15 @@ body.indigo-dark-theme {
     }
   } 
 }
+
+.course-wrapper main {
+  padding: 0 !important;
+}
+
+.content-wrapper {
+  padding: 0 !important;
+}
+
 @import '../../../extra/footer';
 @import '../../../extra/header';
 @import '../../../dashboard/dashboard';
