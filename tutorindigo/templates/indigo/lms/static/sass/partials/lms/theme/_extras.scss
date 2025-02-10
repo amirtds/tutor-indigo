@@ -1335,7 +1335,11 @@ body.indigo-dark-theme {
   padding: 0 !important;
 }
 
-.sequence-nav .button-next, .sequence-nav .button-prev {
+.sequence-nav .button-next, .sequence-nav .button-previous {
+  display: none !important;
+}
+
+.sequence-bottom .button-previous, .sequence-bottom .button-next {
   display: none !important;
 }
 
