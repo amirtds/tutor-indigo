@@ -1335,6 +1335,10 @@ body.indigo-dark-theme {
   padding: 0 !important;
 }
 
+.sequence-nav .button-next, .sequence-nav .button-prev {
+  display: none !important;
+}
+
 @import '../../../extra/footer';
 @import '../../../extra/header';
 @import '../../../dashboard/dashboard';
