@@ -1343,6 +1343,10 @@ body.indigo-dark-theme {
   display: none !important;
 }
 
+.xmodule_display.xmodule_HtmlBlock ol {
+  padding: 0 0 0 1.5em !important;
+}
+
 @import '../../../extra/footer';
 @import '../../../extra/header';
 @import '../../../dashboard/dashboard';
