@@ -8,3 +8,12 @@
 .wrapper-header .branding a img {
     max-height: 65px !important;
 }
+
+
+/* Hide the discussion section within the configure modal */
+.configure-modal__body h4:contains("Discussion"),
+.configure-modal__body h4:contains("Discussion") + hr,
+.configure-modal__body h4:contains("Discussion") + hr + .pgn__form-checkbox,
+.configure-modal__body h4:contains("Discussion") + hr + .pgn__form-checkbox + .x-small.font-weight-bold {
+  display: none;
+}
