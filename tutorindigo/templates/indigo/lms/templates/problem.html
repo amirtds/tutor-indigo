@@ -13,6 +13,7 @@ from openedx.core.djangolib.markup import HTML, Text
 
 <script>
   let debounceTimer;
+  let submitClicked = false;
 
   // Debounce function to delay execution
   function debounce(func, delay) {
@@ -26,17 +27,26 @@ from openedx.core.djangolib.markup import HTML, Text
 
   // Create a MutationObserver to watch for changes in the problem-progress element
   const observer = new MutationObserver(debounce((mutations) => {
-    mutations.forEach((mutation) => {
-      if (mutation.type === 'childList') {
-        // When the content of problem-progress changes, notify the parent window
-        notifySubmission();
-      }
-    });
+    if (submitClicked) {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'childList') {
+          // When the content of problem-progress changes, notify the parent window
+          notifySubmission();
+          submitClicked = false;
+        }
+      });
+    }
   }, 500)); // Adjust the delay (in milliseconds) as needed
 
   // Configure the observer to watch for changes in the problem-progress element
   const problemProgress = document.getElementById('${ id }-problem-progress');
   observer.observe(problemProgress, { childList: true });
+
+  // Add click event listener to the submit button
+  const submitButton = document.querySelector('.submit');
+  submitButton.addEventListener('click', () => {
+    submitClicked = true;
+  });
 </script>
 
 <div class="problem">
