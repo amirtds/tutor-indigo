@@ -17,7 +17,7 @@
         <button type="button" class="btn btn-default btn-small notification-btn review-btn sr">${_('Review')}</button>
     </div>
     
-    % if 'correct' in notification_message.lower():
+    % if 'correct' in notification_message:
     <div class="confetti-container"></div>
     <script>
         function createConfetti() {
