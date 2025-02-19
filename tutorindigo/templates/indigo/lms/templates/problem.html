@@ -169,14 +169,16 @@ from openedx.core.djangolib.markup import HTML, Text
 
     function notifySubmission() {
       // Send message to parent window about submission
-      parent.postMessage({
-          type: 'problem_check',
-          action: 'submit',
-          problemId: '${ problem["name"] }',
-          answer_notification_type: '${ answer_notification_type }',
-          answer_notification_message: '${ answer_notification_message }',
-          attempts_used: '${ attempts_used }',
-          attempts_allowed: '${ attempts_allowed }'
-      }, '*');
-  }
+      setTimeout(() => {
+        parent.postMessage({
+            type: 'problem_check',
+            action: 'submit',
+            problemId: '${ problem["name"] }',
+            answer_notification_type: '${ answer_notification_type }',
+            answer_notification_message: '${ answer_notification_message }',
+            attempts_used: '${ attempts_used }',
+            attempts_allowed: '${ attempts_allowed }'
+        }, '*');
+      }, 3500);
+    }
 </script>
