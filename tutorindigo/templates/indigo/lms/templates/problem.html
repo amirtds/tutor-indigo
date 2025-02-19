@@ -12,15 +12,27 @@ from openedx.core.djangolib.markup import HTML, Text
 <div class="problem-progress" id="${ id }-problem-progress"></div>
 
 <script>
+  let debounceTimer;
+
+  // Debounce function to delay execution
+  function debounce(func, delay) {
+    return function() {
+      const context = this;
+      const args = arguments;
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => func.apply(context, args), delay);
+    };
+  }
+
   // Create a MutationObserver to watch for changes in the problem-progress element
-  const observer = new MutationObserver((mutations) => {
+  const observer = new MutationObserver(debounce((mutations) => {
     mutations.forEach((mutation) => {
       if (mutation.type === 'childList') {
         // When the content of problem-progress changes, notify the parent window
         notifySubmission();
       }
     });
-  });
+  }, 500)); // Adjust the delay (in milliseconds) as needed
 
   // Configure the observer to watch for changes in the problem-progress element
   const problemProgress = document.getElementById('${ id }-problem-progress');
