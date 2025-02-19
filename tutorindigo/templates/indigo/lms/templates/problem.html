@@ -12,8 +12,28 @@ from openedx.core.djangolib.markup import HTML, Text
 <div class="problem-progress" id="${ id }-problem-progress"></div>
 
 <script>
+    function notifySubmission() {
+      // Send message to parent window about submission
+      parent.postMessage({
+          type: 'problem_check',
+          action: 'submit',
+          problemId: '${ problem["name"] }',
+          answer_notification_type: '${ answer_notification_type }',
+          answer_notification_message: '${ answer_notification_message }',
+          attempts_used: '${ attempts_used }',
+          attempts_allowed: '${ attempts_allowed }'
+      }, '*');
+  }
+</script>
+<script>
   let debounceTimer;
   let submitClicked = false;
+
+  // Add click event listener to the submit button
+  const submitButton = document.querySelector('.submit');
+  submitButton.addEventListener('click', () => {
+    submitClicked = true;
+  });
 
   // Debounce function to delay execution
   function debounce(func, delay) {
@@ -42,11 +62,6 @@ from openedx.core.djangolib.markup import HTML, Text
   const problemProgress = document.getElementById('${ id }-problem-progress');
   observer.observe(problemProgress, { childList: true });
 
-  // Add click event listener to the submit button
-  const submitButton = document.querySelector('.submit');
-  submitButton.addEventListener('click', () => {
-    submitClicked = true;
-  });
 </script>
 
 <div class="problem">
@@ -204,17 +219,4 @@ from openedx.core.djangolib.markup import HTML, Text
     function emit_event(message) {
         parent.postMessage(message, '*');
     }
-
-    function notifySubmission() {
-      // Send message to parent window about submission
-      parent.postMessage({
-          type: 'problem_check',
-          action: 'submit',
-          problemId: '${ problem["name"] }',
-          answer_notification_type: '${ answer_notification_type }',
-          answer_notification_message: '${ answer_notification_message }',
-          attempts_used: '${ attempts_used }',
-          attempts_allowed: '${ attempts_allowed }'
-      }, '*');
-  }
 </script>
