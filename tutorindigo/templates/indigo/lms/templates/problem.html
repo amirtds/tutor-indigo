@@ -52,7 +52,7 @@ from openedx.core.djangolib.markup import HTML, Text
       % endif
     </div>
     <div class="submit-attempt-container">
-      <button type="button" class="submit btn-brand" data-submitting="${ submit_button_submitting }" data-value="${ submit_button }" data-should-enable-submit-button="${ should_enable_submit_button }" aria-describedby="submission_feedback_${short_id}" ${'' if should_enable_submit_button else 'disabled'}>
+      <button onclick="notifySubmission()" type="button" class="submit btn-brand" data-submitting="${ submit_button_submitting }" data-value="${ submit_button }" data-should-enable-submit-button="${ should_enable_submit_button }" aria-describedby="submission_feedback_${short_id}" ${'' if should_enable_submit_button else 'disabled'}>
           <span class="submit-label">${ submit_button }</span>
       </button>
 
@@ -166,48 +166,17 @@ from openedx.core.djangolib.markup import HTML, Text
     function emit_event(message) {
         parent.postMessage(message, '*');
     }
-</script>
 
-
-<script>
-  function handleSubmit(event) {
-      event.preventDefault();
-      var form = event.target;
-      var formData = new FormData(form);
-
-      // Make an AJAX request to submit the problem
-      fetch(form.action, {
-          method: 'POST',
-          body: formData
-      })
-      .then(response => response.json())
-      .then(data => {
-          // Update the problem HTML with the response data
-          var problemElement = document.querySelector('.problem');
-          problemElement.innerHTML = data.html;
-
-          // Call notifySubmission() with the updated data
-          notifySubmission();
-      })
-      .catch(error => {
-          console.error('Error submitting the problem:', error);
-      });
-  }
-
-  function notifySubmission() {
+    function notifySubmission() {
       // Send message to parent window about submission
       parent.postMessage({
           type: 'problem_check',
           action: 'submit',
           problemId: '${ problem["name"] }',
-          answer_notification_type: document.querySelector('.submission-feedback .notification.success, .submission-feedback .notification.error, .submission-feedback .notification.general')?.classList[1] || 'None',
-          answer_notification_message: document.querySelector('.submission-feedback .notification.success .notification-message, .submission-feedback .notification.error .notification-message, .submission-feedback .notification.general .notification-message')?.textContent || 'None',
-          attempts_used: document.querySelector('.submission-feedback')?.textContent.match(/You have used (\d+)/)?.[1] || 'None',
-          attempts_allowed: document.querySelector('.submission-feedback')?.textContent.match(/of (\d+) attempts/)?.[1] || 'None'
+          answer_notification_type: '${ answer_notification_type }',
+          answer_notification_message: '${ answer_notification_message }',
+          attempts_used: '${ attempts_used }',
+          attempts_allowed: '${ attempts_allowed }'
       }, '*');
   }
-
-  // Attach the handleSubmit function to the form submission event
-  var form = document.querySelector('form');
-  form.addEventListener('submit', handleSubmit);
 </script>
