@@ -18,22 +18,15 @@ from openedx.core.djangolib.markup import HTML, Text
           type: 'problem_check',
           action: 'submit',
           problemId: '${ problem["name"] }',
-          answer_notification_type: '${ answer_notification_type }',
-          answer_notification_message: '${ answer_notification_message }',
-          attempts_used: '${ attempts_used }',
-          attempts_allowed: '${ attempts_allowed }'
+          answer_notification_type: '${ answer_notification_type or "None" }',
+          answer_notification_message: '${ answer_notification_message or "None" }',
+          attempts_used: '${ attempts_used or "None" }',
+          attempts_allowed: '${ attempts_allowed or "None" }'
       }, '*');
   }
 </script>
 <script>
   let debounceTimer;
-  let submitClicked = false;
-
-  // Add click event listener to the submit button
-  const submitButton = document.querySelector('.submit');
-  submitButton.addEventListener('click', () => {
-    submitClicked = true;
-  });
 
   // Debounce function to delay execution
   function debounce(func, delay) {
@@ -45,23 +38,22 @@ from openedx.core.djangolib.markup import HTML, Text
     };
   }
 
-  // Create a MutationObserver to watch for changes in the problem-progress element
-  const observer = new MutationObserver(debounce((mutations) => {
-    if (submitClicked) {
+  function observeChanges() {
+    // Create a MutationObserver to watch for changes in the problem-progress element
+    const observer = new MutationObserver(debounce((mutations) => {
       mutations.forEach((mutation) => {
         if (mutation.type === 'childList') {
           // When the content of problem-progress changes, notify the parent window
           notifySubmission();
-          submitClicked = false;
+          observer.disconnect(); // Disconnect the observer after notifying
         }
       });
-    }
-  }, 500)); // Adjust the delay (in milliseconds) as needed
+    }, 500)); // Adjust the delay (in milliseconds) as needed
 
-  // Configure the observer to watch for changes in the problem-progress element
-  const problemProgress = document.getElementById('${ id }-problem-progress');
-  observer.observe(problemProgress, { childList: true });
-
+    // Configure the observer to watch for changes in the problem-progress element
+    const problemProgress = document.getElementById('${ id }-problem-progress');
+    observer.observe(problemProgress, { childList: true });
+  }
 </script>
 
 <div class="problem">
@@ -105,7 +97,7 @@ from openedx.core.djangolib.markup import HTML, Text
       % endif
     </div>
     <div class="submit-attempt-container">
-      <button type="button" class="submit btn-brand" data-submitting="${ submit_button_submitting }" data-value="${ submit_button }" data-should-enable-submit-button="${ should_enable_submit_button }" aria-describedby="submission_feedback_${short_id}" ${'' if should_enable_submit_button else 'disabled'}>
+      <button type="button" class="submit btn-brand" data-submitting="${ submit_button_submitting }" data-value="${ submit_button }" data-should-enable-submit-button="${ should_enable_submit_button }" aria-describedby="submission_feedback_${short_id}" ${'' if should_enable_submit_button else 'disabled'} onclick="observeChanges()">
           <span class="submit-label">${ submit_button }</span>
       </button>
 
