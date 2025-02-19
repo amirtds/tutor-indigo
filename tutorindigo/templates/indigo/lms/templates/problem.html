@@ -11,6 +11,22 @@ from openedx.core.djangolib.markup import HTML, Text
 
 <div class="problem-progress" id="${ id }-problem-progress"></div>
 
+<script>
+  // Create a MutationObserver to watch for changes in the problem-progress element
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.type === 'childList') {
+        // When the content of problem-progress changes, notify the parent window
+        notifySubmission();
+      }
+    });
+  });
+
+  // Configure the observer to watch for changes in the problem-progress element
+  const problemProgress = document.getElementById('${ id }-problem-progress');
+  observer.observe(problemProgress, { childList: true });
+</script>
+
 <div class="problem">
   ${ HTML(problem['html']) }
   <div class="action">
@@ -52,7 +68,7 @@ from openedx.core.djangolib.markup import HTML, Text
       % endif
     </div>
     <div class="submit-attempt-container">
-      <button onclick="notifySubmission()" type="button" class="submit btn-brand" data-submitting="${ submit_button_submitting }" data-value="${ submit_button }" data-should-enable-submit-button="${ should_enable_submit_button }" aria-describedby="submission_feedback_${short_id}" ${'' if should_enable_submit_button else 'disabled'}>
+      <button type="button" class="submit btn-brand" data-submitting="${ submit_button_submitting }" data-value="${ submit_button }" data-should-enable-submit-button="${ should_enable_submit_button }" aria-describedby="submission_feedback_${short_id}" ${'' if should_enable_submit_button else 'disabled'}>
           <span class="submit-label">${ submit_button }</span>
       </button>
 
