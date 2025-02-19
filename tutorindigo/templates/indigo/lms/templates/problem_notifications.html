@@ -1,0 +1,68 @@
+<%page expression_filter="h" args="notification_name, notification_type, notification_icon,
+                                   notification_message, should_enable_next_hint, is_hidden=True"/>
+<%! from django.utils.translation import gettext as _ %>
+
+<div class="notification ${notification_type} ${'notification-'}${notification_name}
+      ${'' if not is_hidden else 'is-hidden' }"
+     tabindex="-1">
+    <span class="icon fa ${notification_icon}" aria-hidden="true"></span>
+    <span class="notification-message" aria-describedby="${ short_id }-problem-title">${notification_message}
+    </span>
+    <div class="notification-btn-wrapper">
+        % if notification_name == 'hint':
+        <button type="button" class="btn btn-default btn-small notification-btn hint-button">
+          ${_('Next Hint')}
+        </button>
+        % endif
+        <button type="button" class="btn btn-default btn-small notification-btn review-btn sr">${_('Review')}</button>
+    </div>
+    
+    % if 'correct' in notification_message.lower():
+    <div class="confetti-container"></div>
+    <script>
+        function createConfetti() {
+            const confettiContainer = document.querySelector('.confetti-container');
+            const colors = ['#f44336', '#e91e63', '#9c27b0', '#673ab7', '#3f51b5', '#2196f3', '#03a9f4', '#00bcd4', '#009688', '#4CAF50', '#8BC34A', '#CDDC39', '#FFEB3B', '#FFC107', '#FF9800', '#FF5722'];
+            
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.animationDelay = Math.random() * 2 + 's';
+                confettiContainer.appendChild(confetti);
+            }
+        }
+        
+        createConfetti();
+    </script>
+    <style>
+        .confetti-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            animation: confetti-fall 3s ease-in-out infinite;
+        }
+        
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+            }
+        }
+    </style>
+    % endif
+</div>
