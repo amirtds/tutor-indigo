@@ -172,7 +172,11 @@ from openedx.core.djangolib.markup import HTML, Text
       parent.postMessage({
           type: 'problem_check',
           action: 'submit',
-          problemId: '${ problem["name"] }'
+          problemId: '${ problem["name"] }',
+          answer_notification_type: '${ answer_notification_type }',
+          answer_notification_message: '${ answer_notification_message }',
+          attempts_used: '${ attempts_used }',
+          attempts_allowed: '${ attempts_allowed }'
       }, '*');
   }
 </script>
